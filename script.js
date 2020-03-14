@@ -59,6 +59,18 @@ function getMealById(mealID) {
     });
 }
 
+// 第六步 设置getRandomMeal函数
+function getRandomMeal() {
+  mealsEl.innerHTML = "";
+  resultHeading.innerHTML = "";
+
+  fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+    .then(res => res.json())
+    .then(data => {
+      const meal = data.meals[0];
+      addMealToDOM(meal);
+    });
+}
 // 第五步 设置 addMealToDOM
 function addMealToDOM(meal) {
   const ingredients = [];
@@ -93,6 +105,7 @@ function addMealToDOM(meal) {
 
 // 第二步 设置事件监听
 submit.addEventListener("submit", searchMeal);
+random.addEventListener("click", getRandomMeal);
 
 mealsEl.addEventListener("click", e => {
   const mealInfo = e.path.find(item => {
